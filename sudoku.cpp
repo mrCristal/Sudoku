@@ -7,10 +7,7 @@
 
 using namespace std;
 
-/* You are pre-supplied with the functions below. Add your own 
-   function definitions to the end of this file. */
 
-/* pre-supplied function to load a Sudoku board from a file */
 void load_board(const char* filename, char board[9][9]) {
 
   cout << "Loading Sudoku board from file '" << filename << "'... ";
@@ -37,7 +34,7 @@ void load_board(const char* filename, char board[9][9]) {
   assert(row == 9);
 }
 
-/* internal helper function */
+
 void print_frame(int row) {
   if (!(row % 3))
     cout << "  +===========+===========+===========+" << '\n';
@@ -45,7 +42,7 @@ void print_frame(int row) {
     cout << "  +---+---+---+---+---+---+---+---+---+" << '\n';
 }
 
-/* internal helper function */
+
 void print_row(const char* data, int row) {
   cout << (char) ('A' + row) << " ";
   for (int i=0; i<9; i++) {
@@ -55,7 +52,7 @@ void print_row(const char* data, int row) {
   cout << "|" << '\n';
 }
 
-/* pre-supplied function to display a Sudoku board */
+
 void display_board(const char board[9][9]) {
   cout << "    ";
   for (int r=0; r<9; r++) 
@@ -67,8 +64,6 @@ void display_board(const char board[9][9]) {
   }
   print_frame(9);
 }
-
-/* add your functions here */
 
 
 /* function to check if all cells of the board are filled with a valid
@@ -250,7 +245,6 @@ bool solve_board(char board[9][9])
 					continue; 
 
 				char possible_nums[9] = { '1','2','3','4','5','6','7','8','9' };
-				//char possible_nums[9] = { '9','8','7','6','5','4','3','2','1' };
 
 				int index = 0;
 
