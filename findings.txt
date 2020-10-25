@@ -1,0 +1,51 @@
+Summarise your findings here (see specification).
+All data files bar 'mystery2.dat' have a solution. 'mystery2.dat' cannot be solved.
+
+As Question 5 did not define 'difficulty' as such, it defined here to mean the number of valid cell insertions it takes to get to a solved board. (A valid cell insertion is one where the number inserted satisfies the rules of sudoku.)
+
+The findings:
+
+'easy.dat' board takes 19,282 insertions attemps to solve;
+
+'medium.dat' board takes 159,969 insertion attemps to solve;
+
+'mystery1.dat' takes 3,953,598 insertions attemps to solve;
+
+'mystery2.dat' cannot be solved;
+
+'mystery3.dat' takes 4,184,292 insertions attemps to solve;
+
+From the above we can infer that, given the classifications in Question 5, the 'mystery1.dat' board is hard to solve and 'mystery3.dat' is extremely hard to solve. It should be noted that the difference in difficulty, as measured by the number of cell entries, is marginal - approx 5.8%. 
+
+However, this methodology could be potentially misleading. The issue lies in the counting of these insertions. This is because the count increments by 1 each time a new cell insertion is made irresepective of whether or not the board is full. Counting insertions when the board is not full are arguably meaningless as it is the number of iterations the full board must go through till the solution is found (if there is one) that adds useful information. Counting cell insertions before the board is full is also invalid because such a move cannot possibly lead to a solution on its own, whereas, inserting a new integer in a given cell of a full board can (regardless of how small the possibility is) potentially solve the board. Perhaps the point becomes clearer if we consider the possibility that a board with fewer initial cells filled in takes the same (or similar) number of these insertions to solve as a board with a greater number of initial cells filled in. The difficulty of either of these boards relative to one another is diddicult to gauge. 
+
+As such, another possible measurement of complexity could be the nr of insertions per empty cell (nr of empty cells is defined as the amount of empty cells at the start only). Using this metric, the following results are obtained:
+
+'easy.dat' board takes 803.41 (19,282 / 24) insertions attemps to solve;
+
+'medium.dat' board takes 6,398.76 (159,969/25) insertion attemps to solve;
+
+'mystery1.dat' takes 171,895.57 (3,953,598 / 23) insertions attemps to solve;
+
+'mystery2.dat' cannot be solved;
+
+'mystery3.dat' takes 174,345.5 (4,184,292 / 24) insertions attemps to solve;
+
+ - it is clear that in these examples this metric adds little to no extra information by virtue of the fact that all boards have similar numbers of empty cells at start. This does not prove (or disprove) the validity of this metric.
+ 
+ One other factor that is worth a mention is the initial 'compostion' of the board, where compostion is taken as the concentration of the initial integers of the board, i.e. the amount of each integer (1 to 9) in the initial state of the board. This is best evidenced by an easy experiment. The current implementation of the solve_board function tries to insert integers in empty cells starting from 1, incrementing by one until either a valid entry is found or it reaches 9. The above values are obtained using this method. However, if the order was to be reversed, i.e. start from 9 and decrement to 1, then vastly different results are obtained (although the 'order' of difficulty as defined in the beginning is preserved):
+ 
+'easy.dat' board takes 14,053 insertions attemps to solve;
+
+'medium.dat' board takes 104,673 insertion attemps to solve;
+
+'mystery1.dat' takes 252,455 insertions attemps to solve;
+
+'mystery2.dat' cannot be solved;
+
+'mystery3.dat' takes 504,113 insertions attemps to solve;
+ 
+ It is evident that the number of insertions is reduced by orders of magnitude in most cases. This is suggestive of the fact that the intial concentration has an impact on the nr of insertions. More specifically, in this case it looks like the integers at each cell that solve the board lie at the end of the 1- 9 continuum. It should be stressed that this is a very small sample, and it could be the case that it is a biased sample, but nevertheless it seems that this isssue should be considered when evaluating complexity.
+ 
+ Quantifying the complexity/difficulty of sudoku board is more difficult/complex than it appears at face value.
+ 
